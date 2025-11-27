@@ -1,0 +1,15 @@
+{
+  "name": "aistudenthousinghelper",
+  "version": "1.0.0",
+  "description": "Voice assistant for student housing queries",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "openai": "^4.53.0",
+    "twilio": "^4.23.0"
+  }
+}
