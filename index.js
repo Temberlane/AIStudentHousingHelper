@@ -56,6 +56,116 @@ const listings = [
     bedrooms: 2,
     description: 'Great for roommates, utilities included.',
     url: 'https://example.com/toronto-2bed'
+  },
+  {
+    id: 5,
+    title: 'Affordable room in Sandy Hill, Ottawa',
+    city: 'Ottawa',
+    price: 650,
+    distanceToCampusMinutes: 15,
+    bedrooms: 1,
+    description: 'Private room in 4-bed house. Shared kitchen and bathroom. Laundry included. Parking available.',
+    url: 'https://example.com/ottawa-sandyhill'
+  },
+  {
+    id: 6,
+    title: 'Modern 1-bed condo in Centretown, Ottawa',
+    city: 'Ottawa',
+    price: 1350,
+    distanceToCampusMinutes: 18,
+    bedrooms: 1,
+    description: 'New building with gym and study lounge. Utilities included. Pet-friendly.',
+    url: 'https://example.com/ottawa-centretown'
+  },
+  {
+    id: 7,
+    title: 'Shared room near Carleton University',
+    city: 'Ottawa',
+    price: 500,
+    distanceToCampusMinutes: 5,
+    bedrooms: 1,
+    description: 'Shared room with one other student. Utilities and internet included. Close to campus and transit.',
+    url: 'https://example.com/ottawa-carleton-shared'
+  },
+  {
+    id: 8,
+    title: 'Luxury studio in King West, Toronto',
+    city: 'Toronto',
+    price: 1850,
+    distanceToCampusMinutes: 25,
+    bedrooms: 1,
+    description: 'High-rise building with concierge, gym, and rooftop terrace. All utilities included.',
+    url: 'https://example.com/toronto-kingwest'
+  },
+  {
+    id: 9,
+    title: 'Room in Annex near UofT',
+    city: 'Toronto',
+    price: 950,
+    distanceToCampusMinutes: 7,
+    bedrooms: 1,
+    description: 'Victorian house with character. Shared kitchen. Utilities extra. Quiet street.',
+    url: 'https://example.com/toronto-annex'
+  },
+  {
+    id: 10,
+    title: '3-bed townhouse in North York',
+    city: 'Toronto',
+    price: 2800,
+    distanceToCampusMinutes: 35,
+    bedrooms: 3,
+    description: 'Perfect for 3 students. Backyard, parking for 2 cars. Utilities not included.',
+    url: 'https://example.com/toronto-northyork'
+  },
+  {
+    id: 11,
+    title: 'Bachelor pad near Ryerson',
+    city: 'Toronto',
+    price: 1400,
+    distanceToCampusMinutes: 12,
+    bedrooms: 1,
+    description: 'Compact and efficient. All utilities and internet included. Building has laundry.',
+    url: https://example.com/toronto-ryerson'
+  },
+  {
+    id: 12,
+    title: 'Student house near Laurier Waterloo',
+    city: 'Waterloo',
+    price: 700,
+    distanceToCampusMinutes: 10,
+    bedrooms: 1,
+    description: 'Room in 5-bed student house. Utilities included. Furnished common areas. Great housemates.',
+    url: 'https://example.com/waterloo-laurier'
+  },
+  {
+    id: 13,
+    title: 'Private room in Uptown Waterloo',
+    city: 'Waterloo',
+    price: 900,
+    distanceToCampusMinutes: 20,
+    bedrooms: 1,
+    description: 'Quiet neighborhood, utilities included. Private entrance. Close to shops and restaurants.',
+    url: 'https://example.com/waterloo-uptown'
+  },
+  {
+    id: 14,
+    title: '2-bed apartment near UW campus',
+    city: 'Waterloo',
+    price: 1600,
+    distanceToCampusMinutes: 8,
+    bedrooms: 2,
+    description: 'Bright and spacious. In-suite laundry. Parking included. Pet-friendly building.',
+    url: 'https://example.com/waterloo-2bed'
+  },
+  {
+    id: 15,
+    title: 'Budget room near Conestoga College',
+    city: 'Waterloo',
+    price: 550,
+    distanceToCampusMinutes: 15,
+    bedrooms: 1,
+    description: 'Simple and affordable. Shared bathroom and kitchen. Good for short-term stays.',
+    url: 'https://example.com/waterloo-conestoga'
   }
 ];
 
@@ -84,7 +194,7 @@ function initializeSession(callSid) {
       {
         role: 'system',
         content:
-          'You are House Helper, a concise and friendly student housing assistant. Keep questions short. Keep the conversation focused on finding housing that fits the student. '
+          'You are House Helper, a happy and friendly student housing assistant. Keep questions conversational and open-ended. Keep the conversation focused on finding housing that fits the student. '
       },
       { role: 'assistant', content: greeting }
     ],
@@ -100,7 +210,7 @@ function initializeSession(callSid) {
   };
 }
 
-const completionSystemPrompt = `You are House Helper, a student housing assistant. You receive the full conversation history and current slot values (city, min_budget, max_budget, move_in_date, bedrooms, roommates).\nInfer and update the slots from what the user has shared so far. Determine if you have enough information to confidently recommend housing from the available listings metadata (city, price, distanceToCampusMinutes, description, bedrooms).\nIf more details are needed, ask one concise follow-up question. If enough info is present, set done to true.\nALWAYS respond with a single JSON object only in this shape and nothing else:\n{\n  "slots": {\n    "city": "Toronto",\n    "min_budget": 800,\n    "max_budget": 1500,\n    "move_in_date": "2026-09-01",\n    "bedrooms": 1,\n    "roommates": 0\n  },\n  "done": false,\n  "next_question": "Can you tell me your monthly budget range for rent?"\n}\nWhen done is false, next_question must be a single follow-up question. When done is true, next_question should be a short summary or null.`;
+const completionSystemPrompt = `You are House Helper, a student housing assistant. You receive the full conversation history and current slot values (city, min_budget, max_budget, move_in_date, bedrooms, roommates).\nInfer and update the slots from what the user has shared so far. Determine if you have enough information to confidently recommend housing from the available listings metadata (city, price, distanceToCampusMinutes, description, bedrooms).\nIf more details are needed, ask one concise follow-up question. If enough info is present, set done to true.\nALWAYS respond with a single JSON object only in this shape and nothing else:\n{\n  "slots": {\n    "city": "Toronto",\n    "min_budget": 800,\n    "max_budget": 1500,\n    "move_in_date": "2026-09-01",\n    "bedrooms": 1,\n    "roommates": 0\n  },\n  "done": false,\n  "next_question": "Can you tell me your monthly budget range for rent?"\n}\nWhen done is false, next_question must be a follow-up question or a relevant comment to what was just said and a question to get more information. When done is true, next_question should be a short summary or null.`;
 
 function buildUserMessage(session, speechText) {
   const history = session.messages.map((m) => `${m.role.toUpperCase()}: ${m.content}`).join('\n');
@@ -116,7 +226,7 @@ app.post('/voice', (req, res) => {
 
   const twiml = new twilio.twiml.VoiceResponse();
   const gather = twiml.gather({ input: 'speech', action: '/handle-intent', method: 'POST', timeout: 5, speechTimeout: 'auto' });
-  gather.say('Hey, this is House Helper, your student housing assistant. How can I help? What are you looking for in a place?');
+  gather.say('Hey, this is your student housing assistant. I am here to make finding a place as frictionless as possible through a conversation. What are you looking for in a place?');
   res.type('text/xml').send(twiml.toString());
 });
 
@@ -169,7 +279,7 @@ app.post('/handle-intent', async (req, res) => {
     }
   });
 
-  const maxTurns = 5;
+  const maxTurns = 8;
   if (session.turns > maxTurns) {
     parsedResponse.done = true;
   }
